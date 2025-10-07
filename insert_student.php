@@ -27,13 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Create PDO connection
         $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ];
+        $pdo = new PDO($dsn, $username, $password);
         
-        $pdo = new PDO($dsn, $username, $password, $options);
+        // Set PDO attributes
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         
         // Prepare SQL statement with placeholders
         $sql = "INSERT INTO student (roll_number, name, age, date_of_birth) 
