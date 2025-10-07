@@ -49,253 +49,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Execute the statement
         $stmt->execute();
         
-        // Get the last inserted ID
-        $lastInsertId = $pdo->lastInsertId();
-        
         // Success message
         echo "<!DOCTYPE html>
-        <html lang='en'>
+        <html>
         <head>
             <meta charset='UTF-8'>
-            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
             <title>Success</title>
-            <style>
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
-                body {
-                    font-family: Arial, sans-serif;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    min-height: 100vh;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 20px;
-                }
-                .message-container {
-                    background: white;
-                    padding: 40px;
-                    border-radius: 10px;
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                    max-width: 500px;
-                    width: 100%;
-                    text-align: center;
-                }
-                .success-icon {
-                    font-size: 60px;
-                    color: #28a745;
-                    margin-bottom: 20px;
-                }
-                h1 {
-                    color: #28a745;
-                    margin-bottom: 20px;
-                }
-                .details {
-                    background: #f8f9fa;
-                    padding: 20px;
-                    border-radius: 5px;
-                    margin: 20px 0;
-                    text-align: left;
-                }
-                .details p {
-                    margin: 10px 0;
-                    color: #555;
-                }
-                .details strong {
-                    color: #333;
-                }
-                .btn-back {
-                    display: inline-block;
-                    margin-top: 20px;
-                    padding: 12px 30px;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    text-decoration: none;
-                    border-radius: 5px;
-                    font-weight: bold;
-                    transition: transform 0.2s;
-                }
-                .btn-back:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                }
-            </style>
         </head>
         <body>
-            <div class='message-container'>
-                <div class='success-icon'>✓</div>
-                <h1>Student Registered Successfully!</h1>
-                <div class='details'>
-                    <p><strong>Student ID:</strong> $lastInsertId</p>
-                    <p><strong>Roll Number:</strong> $roll_number</p>
-                    <p><strong>Name:</strong> $name</p>
-                    <p><strong>Age:</strong> $age</p>
-                    <p><strong>Date of Birth:</strong> $date_of_birth</p>
-                </div>
-                <a href='student_form.html' class='btn-back'>Register Another Student</a>
-            </div>
+            <h1>Success!</h1>
+            <p>Student registered successfully.</p>
+            <p><strong>Roll Number:</strong> $roll_number</p>
+            <p><strong>Name:</strong> $name</p>
+            <p><strong>Age:</strong> $age</p>
+            <p><strong>Date of Birth:</strong> $date_of_birth</p>
+            <br>
+            <a href='student_form.html'>Register Another Student</a>
         </body>
         </html>";
         
     } catch (PDOException $e) {
         // Handle database errors
-        if ($e->getCode() == 23000) {
-            // Duplicate entry error
-            echo "<!DOCTYPE html>
-            <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <title>Error</title>
-                <style>
-                    * {
-                        margin: 0;
-                        padding: 0;
-                        box-sizing: border-box;
-                    }
-                    body {
-                        font-family: Arial, sans-serif;
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        min-height: 100vh;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        padding: 20px;
-                    }
-                    .message-container {
-                        background: white;
-                        padding: 40px;
-                        border-radius: 10px;
-                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                        max-width: 500px;
-                        width: 100%;
-                        text-align: center;
-                    }
-                    .error-icon {
-                        font-size: 60px;
-                        color: #dc3545;
-                        margin-bottom: 20px;
-                    }
-                    h1 {
-                        color: #dc3545;
-                        margin-bottom: 20px;
-                    }
-                    p {
-                        color: #555;
-                        margin-bottom: 20px;
-                    }
-                    .btn-back {
-                        display: inline-block;
-                        margin-top: 20px;
-                        padding: 12px 30px;
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 5px;
-                        font-weight: bold;
-                        transition: transform 0.2s;
-                    }
-                    .btn-back:hover {
-                        transform: translateY(-2px);
-                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                    }
-                </style>
-            </head>
-            <body>
-                <div class='message-container'>
-                    <div class='error-icon'>✗</div>
-                    <h1>Error: Duplicate Roll Number</h1>
-                    <p>The roll number <strong>$roll_number</strong> already exists in the database.</p>
-                    <p>Please use a different roll number.</p>
-                    <a href='student_form.html' class='btn-back'>Go Back</a>
-                </div>
-            </body>
-            </html>";
-        } else {
-            // Other database errors
-            echo "<!DOCTYPE html>
-            <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <title>Error</title>
-                <style>
-                    * {
-                        margin: 0;
-                        padding: 0;
-                        box-sizing: border-box;
-                    }
-                    body {
-                        font-family: Arial, sans-serif;
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        min-height: 100vh;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        padding: 20px;
-                    }
-                    .message-container {
-                        background: white;
-                        padding: 40px;
-                        border-radius: 10px;
-                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                        max-width: 500px;
-                        width: 100%;
-                        text-align: center;
-                    }
-                    .error-icon {
-                        font-size: 60px;
-                        color: #dc3545;
-                        margin-bottom: 20px;
-                    }
-                    h1 {
-                        color: #dc3545;
-                        margin-bottom: 20px;
-                    }
-                    p {
-                        color: #555;
-                        margin-bottom: 10px;
-                    }
-                    .error-details {
-                        background: #f8f9fa;
-                        padding: 15px;
-                        border-radius: 5px;
-                        margin: 20px 0;
-                        text-align: left;
-                        font-family: monospace;
-                        font-size: 14px;
-                        color: #dc3545;
-                    }
-                    .btn-back {
-                        display: inline-block;
-                        margin-top: 20px;
-                        padding: 12px 30px;
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 5px;
-                        font-weight: bold;
-                        transition: transform 0.2s;
-                    }
-                    .btn-back:hover {
-                        transform: translateY(-2px);
-                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                    }
-                </style>
-            </head>
-            <body>
-                <div class='message-container'>
-                    <div class='error-icon'>✗</div>
-                    <h1>Database Error</h1>
-                    <p>An error occurred while inserting data into the database.</p>
-                    <div class='error-details'>" . htmlspecialchars($e->getMessage()) . "</div>
-                    <a href='student_form.html' class='btn-back'>Go Back</a>
-                </div>
-            </body>
-            </html>";
-        }
+        echo "<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Error</title>
+        </head>
+        <body>
+            <h1>Error!</h1>
+            <p>Could not insert student record.</p>
+            <p><strong>Error Message:</strong> " . htmlspecialchars($e->getMessage()) . "</p>
+            <br>
+            <a href='student_form.html'>Go Back</a>
+        </body>
+        </html>";
     }
     
 } else {
