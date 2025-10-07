@@ -40,11 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $stmt = $pdo->prepare($sql);
         
-        // Bind parameters
-        $stmt->bindParam(':roll_number', $roll_number, PDO::PARAM_STR);
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':age', $age, PDO::PARAM_INT);
-        $stmt->bindParam(':date_of_birth', $date_of_birth, PDO::PARAM_STR);
+        // Bind parameters (PDO automatically detects data types)
+        $stmt->bindParam(':roll_number', $roll_number);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':age', $age);
+        $stmt->bindParam(':date_of_birth', $date_of_birth);
         
         // Execute the statement
         $stmt->execute();
