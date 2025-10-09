@@ -68,14 +68,17 @@ $password = '';           // MySQL password (empty for XAMPP default)
 **DSN** = **Data Source Name** - A connection string containing database information.
 
 ```php
-$dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+$dsn = "mysql:host=$host;port=3306;dbname=$dbname;charset=utf8mb4";
 ```
 
 **DSN Components:**
 - `mysql:` - Database driver (MySQL)
 - `host=$host` - Server location (localhost)
+- `port=3306` - MySQL port number (default is 3306, required for some hosting providers like InfinityFree)
 - `dbname=$dbname` - Specific database to connect to
 - `charset=utf8mb4` - Character encoding (supports all Unicode characters including emojis)
+
+**Note:** The port specification is optional for most local environments (XAMPP, WAMP) but **required for some hosting providers** like InfinityFree. Always include it for compatibility.
 
 ### Step 3: Create PDO Connection Object
 
@@ -513,7 +516,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ==========================================
     try {
         // Step 1: Create DSN (Data Source Name)
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+        // Note: Port specification is required for some hosting providers like InfinityFree
+        $dsn = "mysql:host=$host;port=3306;dbname=$dbname;charset=utf8mb4";
         
         // Step 2: Create PDO connection
         $pdo = new PDO($dsn, $username, $password);
@@ -884,7 +888,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     try {
         // Create PDO connection
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+        // Note: Port specification is required for some hosting providers like InfinityFree
+        $dsn = "mysql:host=$host;port=3306;dbname=$dbname;charset=utf8mb4";
         $pdo = new PDO($dsn, $username, $password);
         
         // Set PDO attributes

@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     try {
         // Create PDO connection
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+        // Note: For InfinityFree hosting, port specification is required
+        $dsn = "mysql:host=$host;port=3306;dbname=$dbname;charset=utf8mb4";
         $pdo = new PDO($dsn, $username, $password);
         
         // Set PDO attributes
